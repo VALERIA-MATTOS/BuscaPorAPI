@@ -26,15 +26,20 @@ $(document).ready(function(){
     });
   });
 
-  $('#pesquisar').click
+  $('#pesquisar').click(function(){
+    pesquisarColecao();
+  });
+  
   acervo();
 })
 
+function pesquisarColecao(){
+
+}
+
 function acervo(){
   $.getJSON(endereco.colecoes, function(data){
-    console.log(data);
     var result='';
-    var x=0;
     result+='<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
     for (var n=0; n<373; n++){
       if (data.data[n]==undefined) {
@@ -43,7 +48,7 @@ function acervo(){
         } while(data.data[n]==undefined);
       }
       result+='<tr><td>' + data.data[n] + '</td>';
-      result+='<td>' + n + '</td></tr>'
+      result+='<td>'+ n +' </td></tr>'
     }
     '</table>';
     $('#tabelaAcervo').html(result);
