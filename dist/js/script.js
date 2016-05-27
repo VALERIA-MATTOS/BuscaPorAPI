@@ -1,36 +1,48 @@
+var endereco='https://oc-index.library.ubc.ca/collections';
+
 $(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
   $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-   // Make sure this.hash has a value before overriding default behavior
-  if (this.hash !== "") {
-
-    // Prevent default anchor click behavior
-    event.preventDefault();
-
-    // Store hash
-    var hash = this.hash;
-
-    // Using jQuery's animate() method to add smooth page scroll
-    // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-    $('html, body').animate({
-      scrollTop: $(hash).offset().top
-    }, 900, function(){
-
-      // Add hash (#) to URL when done scrolling (default click behavior)
-      window.location.hash = hash;
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+        window.location.hash = hash;
       });
-    } // End if
-  });
-  $(window).scroll(function() {
-  $(".slideanim").each(function(){
-    var pos = $(this).offset().top;
-
-    var winTop = $(window).scrollTop();
-    if (pos < winTop + 600) {
-      $(this).addClass("slide");
     }
   });
-});
+
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+      var winTop = $(window).scrollTop();
+      if (pos < winTop + 600) {
+        $(this).addClass("slide");
+      }
+    });
+  });
+  acervo();
 })
 
+function acervo(){
+  $.getJSON(endereco, function(data){
+    console.log(data);
+    var result='';
+    var x=0;
+    result+='<table border="2"><tr><th>Código</th><th>Título da coleção</th><th>Posicao</th>';
+    for (var n=0; n<373; n++){
+      x++;
+      if (data.data[n]==undefined) {
+        do {
+          n++;
+        } while(data.data[n]==undefined);
+      }
+      result+='<tr><td>' + data.data[n] + '</td>';
+      result+='<td>' + n + '</td>'
+      result+='<td>' + x + '</td></tr>'
+    }
+    '</table>';
+    $('#tabelaAcervo').html(result);
+  });
+}
