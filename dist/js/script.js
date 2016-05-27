@@ -30,17 +30,15 @@ function acervo(){
     console.log(data);
     var result='';
     var x=0;
-    result+='<table border="2"><tr><th>Código</th><th>Título da coleção</th><th>Posicao</th>';
+    result+='<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
     for (var n=0; n<373; n++){
-      x++;
       if (data.data[n]==undefined) {
         do {
           n++;
         } while(data.data[n]==undefined);
       }
       result+='<tr><td>' + data.data[n] + '</td>';
-      result+='<td>' + n + '</td>'
-      result+='<td>' + x + '</td></tr>'
+      result+='<td>' + n + '</td></tr>'
     }
     '</table>';
     $('#tabelaAcervo').html(result);

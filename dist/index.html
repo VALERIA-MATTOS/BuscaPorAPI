@@ -4,6 +4,7 @@
     <title>UDC Library</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link href="img/icon.png" rel="icon" type="image/png"> -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -34,7 +35,7 @@
       </div>
     </nav>
     <div class="jumbotron text-center">
-      <h1><img src="img/icon.png" width="10%"> UDC Library</h1> 
+      <h1><img src="img/icon.png" width="10%"> UBC Library</h1> 
       <p>Um acervo completo de livros, imagens, mapas e muito mais</p> 
     </div>
 
@@ -44,7 +45,7 @@
         <div class="col-sm-8">
           <h2>Acervo completo</h2>
           <h4>Confira abaixo algumas das coleçoes disponíveis em nossa biblioteca..</h4>      
-          <div id="tabelaAcervo"></div>
+          <div id="tabelaAcervo" class="scrollbar"></div>
         </div>
         <div class="col-sm-4">
           <span class="glyphicon glyphicon-globe logo slideanim"></span>
@@ -52,6 +53,7 @@
       </div>
     </div>
 
+    <!--                   Busca por coleção             -->
     <div class="container-fluid bg-grey" id="buscaColecao">
       <div class="row">
         <div class="col-sm-4">
@@ -76,16 +78,16 @@
         <div class="col-sm-7">
           <div class="row">
             <div class="col-sm-6 form-group">
-              <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+              <input class="form-control" id="name" name="name" placeholder="Nome" type="text" required>
             </div>
             <div class="col-sm-6 form-group">
-              <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+              <input class="form-control" id="email" name="email" placeholder="E-mail" type="email" required>
             </div>
           </div>
-          <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+          <textarea class="form-control" id="comments" name="comments" placeholder="Comentário" rows="5"></textarea><br>
           <div class="row">
             <div class="col-sm-12 form-group">
-              <button class="btn btn-default pull-right" type="submit">Send</button>
+              <button class="btn btn-default pull-right" type="submit">Enviar</button>
             </div>
           </div> 
         </div>
