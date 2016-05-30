@@ -1,6 +1,6 @@
 var endereco= {
   colecoes:'https://oc-index.library.ubc.ca/collections',
-  itens:'https://oc-index.library.ubc.ca/collections/darwin/items'
+  itens:'https://oc-index.library.ubc.ca/collections/'
 }
 
 $(document).ready(function(){
@@ -35,13 +35,14 @@ $(document).ready(function(){
 
 function pesquisarColecao(){
   var codigo=$('#campoPesquisa').val();
-  $.getJSON(endereco.colecoes + '/' + codigo + '/items', function(data){
+  var result='<option value="#"> Escolha um item </option>';
+  $('#selecaoItem').show();
+  $.getJSON(endereco.itens + codigo + '/items', function(data){
     console.log(data);
-    var result='';
     for (var x=0; x< 10; x++){
-      result+= data.data[x]._id + '<br>';
+      result+='<option value=' + x + '>' + data.data[x]._id + '</option>';
     }
-    $('#busquei').html(result);
+    $('#selecaoItem').html(result);
   })
 }
 

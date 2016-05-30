@@ -12,6 +12,7 @@ body {font: 400 15px Lato, sans-serif; line-height: 1.8; color: #818181;}
 .slide {animation-name: slide; -webkit-animation-name: slide; animation-duration: 1s; -webkit-animation-duration: 1s; visibility: visible;}
 
 #googleMap {height:400px; width:100%;}
+#selecaoItem {display: none; margin-left: 10%;}
 #tabelaAcervo {width:100%; height:350px; overflow: auto;}
 
 table {width: 100%; margin: 0 auto; padding: 0;}
