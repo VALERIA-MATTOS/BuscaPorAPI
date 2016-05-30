@@ -90,17 +90,24 @@ function tabelaItens (){
 function acervo(){
   $.getJSON(endereco.colecoes, function(data){
     var result='';
+    var x=0;
+    var c=0;
     result+='<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
     for (var n=0; n<373; n++){
+      x++;
       if (data.data[n]==undefined) {
         do {
           n++;
         } while(data.data[n]==undefined);
       }
       result+='<tr><td>' + data.data[n] + '</td>';
-      result+='<td>'+ n +' </td></tr>'
+      result+='<td>'+ x +' </td></tr>';
+      if (x=15){
+        x=0;
+        c++;
+        $('#tabelaAcervo'+ c).html(result);
+      }
     }
     '</table>';
-    $('#tabelaAcervo').html(result);
   });
 }
