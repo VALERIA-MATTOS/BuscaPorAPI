@@ -34,7 +34,15 @@ $(document).ready(function(){
 })
 
 function pesquisarColecao(){
-
+  var codigo=$('#campoPesquisa').val();
+  $.getJSON(endereco.colecoes + '/' + codigo + '/items', function(data){
+    console.log(data);
+    var result='';
+    for (var x=0; x< 10; x++){
+      result+= data.data[x]._id + '<br>';
+    }
+    $('#busquei').html(result);
+  })
 }
 
 function acervo(){
