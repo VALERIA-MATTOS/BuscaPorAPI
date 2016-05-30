@@ -27,7 +27,7 @@ $(document).ready(function(){
   });
 
   $('#pesquisar').click(function(){
-    $('#tabelaItens').hide();
+    limparPesquisa();
     validacaoColecao();
   });
   
@@ -36,6 +36,16 @@ $(document).ready(function(){
   })
   acervo();
 })
+
+function limparPesquisa(){
+  $('#tabelaInformacoes').html('');
+}
+
+function limpar (){
+  $('#campoPesquisa').val('');
+  $('#selecaoItem').hide();
+  $("#myModal").modal();
+}
 
 function validacaoColecao (){
   var codigo=$('#campoPesquisa').val();
@@ -47,7 +57,7 @@ function pesquisarColecao(codigo){
   $.getJSON(endereco.itens + codigo + '/items', function(data){
     var result='<option value="#"> Escolha um item </option>';
     $('#selecaoItem').show();
-    for (var x=0; x< 10; x++){
+    for (var x=0; x<data.data.length; x++){
       result+='<option value=' + data.data[x]._id + '>' + data.data[x]._id + '</option>';
     }
     $('#selecaoItem').html(result);
@@ -62,19 +72,19 @@ function tabelaItens (){
   var itemSelecionado = $('#selecaoItem').val();
   $.getJSON(endereco.itens + codigo + '/items/' + itemSelecionado, function(data){
     var result ='';
-    result+='<br><table class="table table-striped table-bordered"><tr><th>Propriedades</th><th>Informações</th></tr>';
-    result+='<tr><td> Coleção </td><td>' + data.data.Collection[0].value + '</td></tr>';
-    result+='<tr><td> Gênero </td><td>' + data.data.Genre[0].value + '</td>';
-    result+='<tr><td> Criador </td><td>' + data.data.Creator[0].value + '</td></tr>';
-    result+='<tr><td> Título </td><td>' + data.data.Title[0].value + '</table>';
+    result+='<br><table class="table table-striped table-bordered" id="tabelaInfos"><tr><th>Propriedades</th><th>Informações</th></tr>';
+    if ($(data.data.Creator).length != 0) result+='<tr><td> Criador </td><td>' + data.data.Creator[0].value + '</td></tr>';
+    if ($(data.data.Contributor).length != 0) result+='<tr><td> Contribuidores </td><td>' + data.data.Contributor[0].value + '</td></tr>';
+    if ($(data.data.Collection).length !=0) result+='<tr><td> Coleção </td><td>' + data.data.Collection[0].value + '</td></tr>';
+    if ($(data.data.DateCreated).length !=0) result+='<tr><td> Data de criação </td><td>' + data.data.DateCreated[0].value + '</td></tr>';
+    if ($(data.data.DateIssued).length !=0) result+='<tr><td> Data de emissão </td><td>' + data.data.DateIssued[0].value + '</td></tr>';
+    if ($(data.data.Edition).length !=0) result+='<tr><td> Edição </td><td>' + data.data.Edition[0].value + '</td></tr>';
+    if ($(data.data.Genre).length !=0) result+='<tr><td> Gênero </td><td>' + data.data.Genre[0].value + '</td></tr>';
+    if ($(data.data.Language).length !=0) result+='<tr><td> Idioma </td><td>' + data.data.Language[0].value + '</td></tr>';
+    if ($(data.data.Country).length !=0) result+='<tr><td> País </td><td>' + data.data.Country[0].value + '</td></tr>';
+    if ($(data.data.Title).length !=0) result+='<tr><td> Título </td><td>' + data.data.Title[0].value + '</tr></table>';
     $('#tabelaInformacoes').html(result);
   })
-}
-
-function limpar (){
-  $('#campoPesquisa').val('');
-  $('#selecaoItem').hide();
-  $("#myModal").modal();
 }
 
 function acervo(){
