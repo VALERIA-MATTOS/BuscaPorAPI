@@ -27,23 +27,54 @@ $(document).ready(function(){
   });
 
   $('#pesquisar').click(function(){
-    pesquisarColecao();
+    $('#tabelaItens').hide();
+    validacaoColecao();
   });
   
+  $('#selecaoItem').change(function(){
+    tabelaItens();
+  })
   acervo();
 })
 
-function pesquisarColecao(){
+function validacaoColecao (){
   var codigo=$('#campoPesquisa').val();
-  var result='<option value="#"> Escolha um item </option>';
-  $('#selecaoItem').show();
+  if (codigo!=0) pesquisarColecao(codigo);
+  else limpar();
+}
+
+function pesquisarColecao(codigo){
   $.getJSON(endereco.itens + codigo + '/items', function(data){
-    console.log(data);
+    var result='<option value="#"> Escolha um item </option>';
+    $('#selecaoItem').show();
     for (var x=0; x< 10; x++){
-      result+='<option value=' + x + '>' + data.data[x]._id + '</option>';
+      result+='<option value=' + data.data[x]._id + '>' + data.data[x]._id + '</option>';
     }
     $('#selecaoItem').html(result);
   })
+  .fail(function(){
+    limpar();
+  });
+}
+
+function tabelaItens (){
+  var codigo=$('#campoPesquisa').val();
+  var itemSelecionado = $('#selecaoItem').val();
+  $.getJSON(endereco.itens + codigo + '/items/' + itemSelecionado, function(data){
+    var result ='';
+    result+='<br><table class="table table-striped table-bordered"><tr><th>Propriedades</th><th>Informações</th></tr>';
+    result+='<tr><td> Coleção </td><td>' + data.data.Collection[0].value + '</td></tr>';
+    result+='<tr><td> Gênero </td><td>' + data.data.Genre[0].value + '</td>';
+    result+='<tr><td> Criador </td><td>' + data.data.Creator[0].value + '</td></tr>';
+    result+='<tr><td> Título </td><td>' + data.data.Title[0].value + '</table>';
+    $('#tabelaInformacoes').html(result);
+  })
+}
+
+function limpar (){
+  $('#campoPesquisa').val('');
+  $('#selecaoItem').hide();
+  $("#myModal").modal();
 }
 
 function acervo(){
