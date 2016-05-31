@@ -3,6 +3,8 @@ var endereco= {
   itens:'https://oc-index.library.ubc.ca/collections/'
 }
 
+var cabecalho='<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
+
 $(document).ready(function(){
   $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
     if (this.hash !== "") {
@@ -37,6 +39,8 @@ $(document).ready(function(){
 
   $('a').click(function(data){
     var pagina = $(this).attr('id');
+    $("li").removeClass("active");
+    $("li a[id="+pagina+"]").parent().addClass("active");
     paginacao (pagina);
   })
 
@@ -100,7 +104,7 @@ function acervo(){
     var result='';
     var x=0;
     var c=0;
-    result+='<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
+    result+=cabecalho;
     for (var n=0; n<373; n++){
       x++;
       if (data.data[n]==undefined) {
@@ -115,7 +119,7 @@ function acervo(){
         c++;
         result += '</table>';
         $('#tabelaAcervo'+ c).html(result);
-        result = '<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
+        result=cabecalho;
       }
     }
   });
