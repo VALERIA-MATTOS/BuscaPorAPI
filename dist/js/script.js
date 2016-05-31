@@ -37,10 +37,12 @@ $(document).ready(function(){
 
   $('a').click(function(data){
     var pagina = $(this).attr('id');
-    paginacao ();
+    paginacao (pagina);
   })
 
   acervo();
+  escondeTabelas();
+  $('#tabelaAcervo1').show();
 })
 
 function limparResultadoPesquisa(){
@@ -125,6 +127,55 @@ function limpa(itens){
   }
 }
 
-function paginacao (valor){
-  console.log('chamou');
+function escondeTabelas(){
+  limpa(['#tabelaAcervo1','#tabelaAcervo2','#tabelaAcervo3','#tabelaAcervo4','#tabelaAcervo5','#tabelaAcervo6','#tabelaAcervo7','#tabelaAcervo8','#tabelaAcervo9','#tabelaAcervo10','#tabelaAcervo11']);
+}
+
+function paginacao (pagina){
+  switch (pagina){
+    case "1":
+      escondeTabelas();
+      $('#tabelaAcervo1').show();
+      break;
+    case "2":
+      escondeTabelas();
+      $('#tabelaAcervo2').show();
+      break;
+    case "3":
+      escondeTabelas();
+      $('#tabelaAcervo3').show();
+      break;
+    case "4":
+      escondeTabelas();
+      $('#tabelaAcervo4').show();
+      break;
+    case "5":
+      escondeTabelas();
+      $('#tabelaAcervo5').show();
+      break;
+    case "6":
+      escondeTabelas();
+      $('#tabelaAcervo6').show();
+      break;
+    case "7":
+      escondeTabelas();
+      $('#tabelaAcervo7').show();
+      break;
+    case "8":
+      escondeTabelas();
+      $('#tabelaAcervo8').show();
+      break;
+    case "9":
+      escondeTabelas();
+      $('#tabelaAcervo9').show();
+      break;
+    case "10":
+      escondeTabelas();
+      $('#tabelaAcervo10').show();
+      break;
+    case "11":
+      escondeTabelas();
+      $('#tabelaAcervo11').show();
+      break;
+  }
 }
