@@ -27,21 +27,27 @@ $(document).ready(function(){
   });
 
   $('#pesquisar').click(function(){
-    limparPesquisa();
+    limparResultadoPesquisa();
     validacaoColecao();
   });
   
   $('#selecaoItem').change(function(){
     tabelaItens();
   })
+
+  $('a').click(function(data){
+    var pagina = $(this).attr('id');
+    paginacao ();
+  })
+
   acervo();
 })
 
-function limparPesquisa(){
+function limparResultadoPesquisa(){
   $('#tabelaInformacoes').html('');
 }
 
-function limpar (){
+function limparCampoPesquisa (){
   $('#campoPesquisa').val('');
   $('#selecaoItem').hide();
   $("#myModal").modal();
@@ -50,7 +56,7 @@ function limpar (){
 function validacaoColecao (){
   var codigo=$('#campoPesquisa').val();
   if (codigo!=0) pesquisarColecao(codigo);
-  else limpar();
+  else limparCampoPesquisa();
 }
 
 function pesquisarColecao(codigo){
@@ -63,7 +69,7 @@ function pesquisarColecao(codigo){
     $('#selecaoItem').html(result);
   })
   .fail(function(){
-    limpar();
+    limparCampoPesquisa();
   });
 }
 
@@ -101,13 +107,24 @@ function acervo(){
         } while(data.data[n]==undefined);
       }
       result+='<tr><td>' + data.data[n] + '</td>';
-      result+='<td>'+ x +' </td></tr>';
-      if (x=15){
+      result+='<td>'+ c +' </td></tr>';
+      if (x===15){
         x=0;
         c++;
+        result += '</table>';
         $('#tabelaAcervo'+ c).html(result);
+        result = '<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>';
       }
     }
-    '</table>';
   });
+}
+
+function limpa(itens){
+  for(var x=0; x<itens.length; x++){
+    $(itens[x]).stop().hide();
+  }
+}
+
+function paginacao (valor){
+  console.log('chamou');
 }
