@@ -5,6 +5,7 @@ footer .glyphicon {font-size: 20px; margin-bottom: 20px; color: #46c29f;}
 h2 {font-size: 24px; text-transform: uppercase; color: #303030; font-weight: 600; margin-bottom: 30px;}
 h4 {font-size: 19px; line-height: 1.375em; color: #303030; font-weight: 400; margin-bottom: 30px;}
 
+.active {background-color: #46c29f; color: #46c29f;}
 .navbar {font-family: Montserrat, sans-serif; margin-bottom: 0; background-color: #f6f6f6; z-index: 9999; border: 0; font-size: 12px !important; line-height: 1.42857143 !important; letter-spacing: 4px; border-radius: 0;}
 .navbar li a, .navbar .navbar-brand {color: #46c29f !important;}
 .navbar-nav li a:hover, .navbar-nav li.active a {color: #f6f6f6 !important; background-color: #46c29f !important;}
@@ -19,6 +20,8 @@ h4 {font-size: 19px; line-height: 1.375em; color: #303030; font-weight: 400; mar
 .slide {animation-name: slide; -webkit-animation-name: slide; animation-duration: 1s; -webkit-animation-duration: 1s; visibility: visible;}
 
 #googleMap {height:400px; width:100%;}
+#myModal {top:30%;}
+#myModal h3 {color: #46c29f;}
 #selecaoItem {display: none; margin-left: 10%;}
 #tabelaInfos {width: 80%; margin-left: 0;}
 
