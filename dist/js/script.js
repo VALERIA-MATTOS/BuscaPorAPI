@@ -5,7 +5,7 @@ var endereco= {
 
 var cabecalho={
   colecao:'<table class="table table-striped table-bordered"><tr><th>Collection code</th><th>Collection name</th></tr>',
-  item:'<br><table class="table table-striped table-bordered" id="tabelaInfos"><tr><th>Properties</th><th>Information</th></tr>'
+  item:'<br><table class="table table-bordered" id="tabelaInfos"><tr><th>Properties</th><th>Information</th></tr>'
 }
 
 $(document).ready(function(){
@@ -31,6 +31,12 @@ $(document).ready(function(){
     });
   });
 
+  $('#limpar').click(function(){
+    limparResultadoPesquisa();
+    esconder(['#selecaoItem']);
+    $('#campoPesquisa').val('');
+  })
+
   $('#pesquisar').click(function(){
     limparResultadoPesquisa();
     validacaoColecao();
@@ -48,7 +54,7 @@ $(document).ready(function(){
   })
 
   acervo();
-  escondeTabelas();
+  esconder(['.tabelasAcervo']);
   $('#tabelaAcervo1').show();
 });
 
@@ -66,12 +72,9 @@ function esconder(opcoes){
   }
 }
 
-function escondeTabelas(){
-  esconder(['#tabelaAcervo1','#tabelaAcervo2','#tabelaAcervo3','#tabelaAcervo4','#tabelaAcervo5','#tabelaAcervo6','#tabelaAcervo7','#tabelaAcervo8','#tabelaAcervo9','#tabelaAcervo10','#tabelaAcervo11','#tabelaAcervo12','#tabelaAcervo13','#tabelaAcervo14','#tabelaAcervo15']);
-}
-
 function limparResultadoPesquisa(){
   $('#tabelaInformacoes').html('');
+  esconder(['#limpar']);
 }
 
 function limparCampoPesquisa (){
@@ -162,6 +165,7 @@ function tabelaItens (){
       if ($(data.data.Country).length !=0) result+='<tr><td> Country </td><td>' + data.data.Country[0].value + '</td></tr>';
       if ($(data.data.Title).length !=0) result+='<tr><td> Title </td><td>' + data.data.Title[0].value + '</tr></table>';
       $('#tabelaInformacoes').html(result);
+      $('#limpar').show();
     })  
   }
   else limparResultadoPesquisa();
@@ -170,63 +174,63 @@ function tabelaItens (){
 function paginacao (pagina){
   switch (pagina){
     case "1":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo1').show();
       break;
     case "2":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo2').show();
       break;
     case "3":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo3').show();
       break;
     case "4":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo4').show();
       break;
     case "5":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo5').show();
       break;
     case "6":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo6').show();
       break;
     case "7":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo7').show();
       break;
     case "8":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo8').show();
       break;
     case "9":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo9').show();
       break;
     case "10":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo10').show();
       break;
     case "11":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo11').show();
       break;
     case "12":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo12').show();
       break;
     case "13":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo13').show();
       break;
     case "14":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo14').show();
       break;
     case "15":
-      escondeTabelas();
+      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo15').show();
       break;
   }
