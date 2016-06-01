@@ -4,8 +4,8 @@ var endereco= {
 }
 
 var cabecalho={
-  colecao:'<table class="table table-striped table-bordered"><tr><th>Código</th><th>Título da coleção</th></tr>',
-  item:'<br><table class="table table-striped table-bordered" id="tabelaInfos"><tr><th>Propriedades</th><th>Informações</th></tr>'
+  colecao:'<table class="table table-striped table-bordered"><tr><th>Collection code</th><th>Collection name</th></tr>',
+  item:'<br><table class="table table-striped table-bordered" id="tabelaInfos"><tr><th>Properties</th><th>Information</th></tr>'
 }
 
 $(document).ready(function(){
@@ -132,7 +132,7 @@ function acervoTitulos(acervoCodigo){
 
 function pesquisarColecao(codigo){
   $.getJSON(endereco.itens + codigo + '/items', function(data){
-    var result='<option value="#"> Escolha um item </option>';
+    var result='<option value="#"> Choose an item </option>';
     $('#selecaoItem').show();
     for (var x=0; x<data.data.length; x++){
       result+='<option value=' + data.data[x]._id + '>' + data.data[x]._id + '</option>';
@@ -151,16 +151,16 @@ function tabelaItens (){
     $.getJSON(endereco.itens + codigo + '/items/' + itemSelecionado, function(data){
       var result ='';
       result+=cabecalho.item;
-      if ($(data.data.Creator).length != 0) result+='<tr><td> Criador </td><td>' + data.data.Creator[0].value + '</td></tr>';
-      if ($(data.data.Contributor).length != 0) result+='<tr><td> Contribuidores </td><td>' + data.data.Contributor[0].value + '</td></tr>';
-      if ($(data.data.Collection).length !=0) result+='<tr><td> Coleção </td><td>' + data.data.Collection[0].value + '</td></tr>';
-      if ($(data.data.DateCreated).length !=0) result+='<tr><td> Data de criação </td><td>' + data.data.DateCreated[0].value + '</td></tr>';
-      if ($(data.data.DateIssued).length !=0) result+='<tr><td> Data de emissão </td><td>' + data.data.DateIssued[0].value + '</td></tr>';
-      if ($(data.data.Edition).length !=0) result+='<tr><td> Edição </td><td>' + data.data.Edition[0].value + '</td></tr>';
-      if ($(data.data.Genre).length !=0) result+='<tr><td> Gênero </td><td>' + data.data.Genre[0].value + '</td></tr>';
-      if ($(data.data.Language).length !=0) result+='<tr><td> Idioma </td><td>' + data.data.Language[0].value + '</td></tr>';
-      if ($(data.data.Country).length !=0) result+='<tr><td> País </td><td>' + data.data.Country[0].value + '</td></tr>';
-      if ($(data.data.Title).length !=0) result+='<tr><td> Título </td><td>' + data.data.Title[0].value + '</tr></table>';
+      if ($(data.data.Creator).length != 0) result+='<tr><td> Creator </td><td>' + data.data.Creator[0].value + '</td></tr>';
+      if ($(data.data.Contributor).length != 0) result+='<tr><td> Contributor </td><td>' + data.data.Contributor[0].value + '</td></tr>';
+      if ($(data.data.Collection).length !=0) result+='<tr><td> Collection </td><td>' + data.data.Collection[0].value + '</td></tr>';
+      if ($(data.data.DateCreated).length !=0) result+='<tr><td> Date created </td><td>' + data.data.DateCreated[0].value + '</td></tr>';
+      if ($(data.data.DateIssued).length !=0) result+='<tr><td> Date Issued </td><td>' + data.data.DateIssued[0].value + '</td></tr>';
+      if ($(data.data.Edition).length !=0) result+='<tr><td> Edition </td><td>' + data.data.Edition[0].value + '</td></tr>';
+      if ($(data.data.Genre).length !=0) result+='<tr><td> Genre </td><td>' + data.data.Genre[0].value + '</td></tr>';
+      if ($(data.data.Language).length !=0) result+='<tr><td> Language </td><td>' + data.data.Language[0].value + '</td></tr>';
+      if ($(data.data.Country).length !=0) result+='<tr><td> Country </td><td>' + data.data.Country[0].value + '</td></tr>';
+      if ($(data.data.Title).length !=0) result+='<tr><td> Title </td><td>' + data.data.Title[0].value + '</tr></table>';
       $('#tabelaInformacoes').html(result);
     })  
   }
