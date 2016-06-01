@@ -79,28 +79,30 @@ function validacaoColecao (){
 }
 
 function acervo(){
+  var acervoCodigo='';
+  var itensPorPagina=0;
+  var numeroPagina=0;
+  var result='';
+  var tituloColecao='';
   $.getJSON(endereco.colecoes, function(data){
-    var result='';
-    var tituloColecao='';
-    var x=0;
-    var c=0;
     result+=cabecalho.colecao;
-    for (var n=0; n<373; n++){
-      x++;
+    for (var n=0; n<300; n++){
+      itensPorPagina++;
       if (data.data[n]==undefined) {
         do {
           n++;
         } while(data.data[n]==undefined);
       }
       result+='<tr><td>' + data.data[n] + '</td>';
-      var acervoCodigo = data.data[n];
+      acervoCodigo = data.data[n];
       tituloColecao=acervoTitulos(acervoCodigo);
+      console.log(tituloColecao);
       result+='<td>'+ tituloColecao +' </td></tr>';
-      if (x===10){
-        x=0;
-        c++;
+      if (itensPorPagina===10){
+        itensPorPagina=0;
+        numeroPagina++;
         result += '</table>';
-        $('#tabelaAcervo'+ c).html(result);
+        $('#tabelaAcervo'+ numeroPagina).html(result);
         result=cabecalho.colecao;
       }
     }
@@ -108,12 +110,22 @@ function acervo(){
 }
 
 function acervoTitulos(acervoCodigo){
-  var titulo = '';
-  $.getJSON(endereco.colecoes + '/' + acervoCodigo, function(data){
-      titulo=(data.data.title);
-      return titulo;
+  var retorno = false;
+  $.ajax({
+      type: "GET",
+      url: endereco.colecoes + '/' + acervoCodigo,
+      dataType: "json",
+      async: false,
+      success: function(data) {
+          retorno=data.data.title;
+          console.log(retorno);
+      }
+      /*error: function() {
+          alert('Error occured');
+          console.log('erro');
+      }*/
   });
-  console.log(titulo);
+  return retorno;
 }
 
 function pesquisarColecao(codigo){
