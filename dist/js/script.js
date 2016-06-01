@@ -33,7 +33,7 @@ $(document).ready(function(){
 
   $('#limpar').click(function(){
     limparResultadoPesquisa();
-    esconder(['#selecaoItem']);
+    $('#selecaoItem').hide();
     $('#campoPesquisa').val('');
   })
 
@@ -54,7 +54,7 @@ $(document).ready(function(){
   })
 
   acervo();
-  esconder(['.tabelasAcervo']);
+  $('.tabelasAcervo').hide();
   $('#tabelaAcervo1').show();
 });
 
@@ -66,20 +66,14 @@ $(document).keypress(function(e) {
   }
 });
 
-function esconder(opcoes){
-  for(var x=0; x<opcoes.length; x++){
-    $(opcoes[x]).stop().hide();
-  }
-}
-
 function limparResultadoPesquisa(){
   $('#tabelaInformacoes').html('');
-  esconder(['#limpar']);
+  $('#limpar').hide();
 }
 
 function limparCampoPesquisa (){
   $('#campoPesquisa').val('');
-  esconder(['#selecaoItem']);
+  $('#selecaoItem').hide();
   $("#myModal").modal();
 }
 
@@ -172,65 +166,51 @@ function tabelaItens (){
 }
 
 function paginacao (pagina){
+  $('.tabelasAcervo').hide();
   switch (pagina){
     case "1":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo1').show();
       break;
     case "2":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo2').show();
       break;
     case "3":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo3').show();
       break;
     case "4":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo4').show();
       break;
     case "5":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo5').show();
       break;
     case "6":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo6').show();
       break;
     case "7":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo7').show();
       break;
     case "8":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo8').show();
       break;
     case "9":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo9').show();
       break;
     case "10":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo10').show();
       break;
     case "11":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo11').show();
       break;
     case "12":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo12').show();
       break;
     case "13":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo13').show();
       break;
     case "14":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo14').show();
       break;
     case "15":
-      esconder(['.tabelasAcervo']);
       $('#tabelaAcervo15').show();
       break;
   }
