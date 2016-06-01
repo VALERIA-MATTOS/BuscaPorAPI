@@ -50,11 +50,19 @@ $(document).ready(function(){
   acervo();
   escondeTabelas();
   $('#tabelaAcervo1').show();
-})
+});
 
-function esconder(itens){
-  for(var x=0; x<itens.length; x++){
-    $(itens[x]).stop().hide();
+$(document).keypress(function(e) {
+  if (e.which == 13) {
+    e.preventDefault();
+    limparResultadoPesquisa();
+    validacaoColecao();
+  }
+});
+
+function esconder(opcoes){
+  for(var x=0; x<opcoes.length; x++){
+    $(opcoes[x]).stop().hide();
   }
 }
 
@@ -96,7 +104,6 @@ function acervo(){
       result+='<tr><td>' + data.data[n] + '</td>';
       acervoCodigo = data.data[n];
       tituloColecao=acervoTitulos(acervoCodigo);
-      console.log(tituloColecao);
       result+='<td>'+ tituloColecao +' </td></tr>';
       if (itensPorPagina===10){
         itensPorPagina=0;
@@ -117,13 +124,8 @@ function acervoTitulos(acervoCodigo){
       dataType: "json",
       async: false,
       success: function(data) {
-          retorno=data.data.title;
-          console.log(retorno);
+        retorno=data.data.title;
       }
-      /*error: function() {
-          alert('Error occured');
-          console.log('erro');
-      }*/
   });
   return retorno;
 }
