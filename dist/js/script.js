@@ -8,6 +8,8 @@ var cabecalho={
   item:'<br><table class="table table-bordered" id="tabelaInfos"><tr><th>Properties</th><th>Information</th></tr>'
 }
 
+var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
+
 $(document).ready(function(){
   inicio ();
   efeitoRolagemTela();
@@ -33,6 +35,7 @@ $(document).ready(function(){
     $("li .linksPaginacao[id="+pagina+"]").parent().addClass("active");
     minimoPagina(pagina);
   })
+
 });
 
 $(document).keypress(function(e) {
@@ -85,11 +88,14 @@ function efeitoRolagemTela (){
 }
 
 function inicio (){
+  var minimo=minimoMaximo[0];
+  var maximo=minimoMaximo[1];
+  acervo(minimo,maximo);
   paginacaoTabela();
+  $("li .linksPaginacao[id=1]").parent().addClass("active");
 }
 
 function minimoPagina (pagina){
-  var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
   var minimo=minimoMaximo[pagina-1];
   var maximo=minimoMaximo[pagina];
   acervo(minimo,maximo);
