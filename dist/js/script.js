@@ -9,7 +9,8 @@ var cabecalho={
 }
 
 $(document).ready(function(){
-  efeitoRolagemTela ();
+  inicio ();
+  efeitoRolagemTela();
 
   $('#limpar').click(function(){
     limparResultadoPesquisa();
@@ -26,16 +27,12 @@ $(document).ready(function(){
     tabelaItens();
   })
 
-  $('a').click(function(data){
+  $('.linksPaginacao').click(function(data){
     var pagina = $(this).attr('id');
     $("li").removeClass("active");
-    $("li a[id="+pagina+"]").parent().addClass("active");
-    paginacao (pagina);
+    $("li .linksPaginacao[id="+pagina+"]").parent().addClass("active");
+    minimoPagina(pagina);
   })
-
-  acervo();
-  $('.tabelasAcervo').hide();
-  $('#tabelaAcervo1').show();
 });
 
 $(document).keypress(function(e) {
@@ -45,6 +42,23 @@ $(document).keypress(function(e) {
     validacaoColecao();
   }
 });
+
+function limparResultadoPesquisa(){
+  $('#tabelaInformacoes').html('');
+  $('#limpar').hide();
+}
+
+function limparCampoPesquisa (){
+  $('#campoPesquisa').val('');
+  $('#selecaoItem').hide();
+  $("#myModal").modal();
+}
+
+function validacaoColecao (){
+  var codigo=$('#campoPesquisa').val();
+  if (codigo!=0) pesquisarColecao(codigo);
+  else limparCampoPesquisa();
+}
 
 function efeitoRolagemTela (){
   $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
@@ -70,33 +84,25 @@ function efeitoRolagemTela (){
   });
 }
 
-function limparResultadoPesquisa(){
-  $('#tabelaInformacoes').html('');
-  $('#limpar').hide();
+function inicio (){
+  paginacaoTabela();
 }
 
-function limparCampoPesquisa (){
-  $('#campoPesquisa').val('');
-  $('#selecaoItem').hide();
-  $("#myModal").modal();
+function minimoPagina (pagina){
+  var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
+  var minimo=minimoMaximo[pagina-1];
+  var maximo=minimoMaximo[pagina];
+  acervo(minimo,maximo);
 }
 
-function validacaoColecao (){
-  var codigo=$('#campoPesquisa').val();
-  if (codigo!=0) pesquisarColecao(codigo);
-  else limparCampoPesquisa();
-}
-
-function acervo(){
-  var acervoCodigo='';
-  var itensPorPagina=0;
-  var numeroPagina=0;
-  var result='';
+function acervo(minimo,maximo){
   var tituloColecao='';
+  var result='';
+  //var itensPorPagina=0;
   $.getJSON(endereco.colecoes, function(data){
     result+=cabecalho.colecao;
-    for (var n=0; n<300; n++){
-      itensPorPagina++;
+    for (var n=minimo; n<maximo; n++){
+      //itensPorPagina++;
       if (data.data[n]==undefined) {
         do {
           n++;
@@ -105,16 +111,15 @@ function acervo(){
       result+='<tr><td>' + data.data[n] + '</td>';
       acervoCodigo = data.data[n];
       tituloColecao=acervoTitulos(acervoCodigo);
-      result+='<td>'+ tituloColecao +' </td></tr>';
-      if (itensPorPagina===10){
+      result+='<td>'+ tituloColecao + '</td></tr>';
+      /*if (itensPorPagina===10){
+        n=300;
         itensPorPagina=0;
-        numeroPagina++;
-        result += '</table>';
-        $('#tabelaAcervo'+ numeroPagina).html(result);
-        result=cabecalho.colecao;
-      }
+      }*/
     }
-  });
+    result += '</table>';
+    $('#tabelasAcervo').html(result);
+  })
 }
 
 function acervoTitulos(acervoCodigo){
@@ -169,53 +174,11 @@ function tabelaItens (){
   else limparResultadoPesquisa();
 }
 
-function paginacao (pagina){
-  $('.tabelasAcervo').hide();
-  switch (pagina){
-    case "1":
-      $('#tabelaAcervo1').show();
-      break;
-    case "2":
-      $('#tabelaAcervo2').show();
-      break;
-    case "3":
-      $('#tabelaAcervo3').show();
-      break;
-    case "4":
-      $('#tabelaAcervo4').show();
-      break;
-    case "5":
-      $('#tabelaAcervo5').show();
-      break;
-    case "6":
-      $('#tabelaAcervo6').show();
-      break;
-    case "7":
-      $('#tabelaAcervo7').show();
-      break;
-    case "8":
-      $('#tabelaAcervo8').show();
-      break;
-    case "9":
-      $('#tabelaAcervo9').show();
-      break;
-    case "10":
-      $('#tabelaAcervo10').show();
-      break;
-    case "11":
-      $('#tabelaAcervo11').show();
-      break;
-    case "12":
-      $('#tabelaAcervo12').show();
-      break;
-    case "13":
-      $('#tabelaAcervo13').show();
-      break;
-    case "14":
-      $('#tabelaAcervo14').show();
-      break;
-    case "15":
-      $('#tabelaAcervo15').show();
-      break;
+function paginacaoTabela (){
+  var links='<ul class="pagination">';
+  for (var n=1; n<16; n++){
+    links+='<li><a href="#tabelasAcervo" id="'+n+'"class="linksPaginacao">'+n+'</a></li>';
   }
+  '</ul>';
+  $('.paginacaoTabela').html(links);
 }
