@@ -1,6 +1,7 @@
 var endereco= {
   colecoes:'https://oc-index.library.ubc.ca/collections',
-  itens:'https://oc-index.library.ubc.ca/collections/'
+  itens:'https://oc-index.library.ubc.ca/collections/',
+  downloads: 'https://open.library.ubc.ca/collections/darwin/items/1.0000091'
 }
 
 var cabecalho={
@@ -26,6 +27,7 @@ $(document).ready(function(){
     tabelaItens();
   });
   $('.linksPaginacao').click(function(data){
+    $(this).unbind('click');
     var pagina = $(this).attr('id');
     $("li").removeClass("active");
     $("li .linksPaginacao[id="+pagina+"]").parent().addClass("active");
@@ -42,10 +44,9 @@ $(document).keypress(function(e) {
 });
 
 function inicio (){
+  $("#modalWelcome").modal("show");
   var minimo=minimoMaximo[0];
   var maximo=minimoMaximo[1];
-  $('#modalAttention').hide();
-  $("#myModal").modal("show");
   acervo(minimo,maximo);
   paginacaoTabela();
   $("li .linksPaginacao[id=1]").parent().addClass("active");
@@ -59,9 +60,7 @@ function limparResultadoPesquisa(){
 function limparCampoPesquisa (){
   $('#campoPesquisa').val('');
   $('#selecaoItem').hide();
-  $('#modalAttention').show();
-  $('#modalWelcome').hide();
-  $("#myModal").modal();
+  $("#modalAttention").modal();
 }
 
 function minimoPagina (pagina){
@@ -118,7 +117,7 @@ function acervo(minimo,maximo){
     }
     result += '</table>';
     $('#tabelasAcervo').html(result);
-    $("#myModal").modal("hide");
+    $("#modalWelcome").modal("hide");
   });
 }
 
@@ -181,4 +180,18 @@ function paginacaoTabela (){
   }
   '</ul>';
   $('.paginacaoTabela').html(links);
+}
+
+function pesquisarColecao(codigo){
+  $.getJSON(endereco.downloads + codigo + '/items', function(data){
+    var result='';
+    $('#selecaoItem').show();
+    for (var x=0; x<data.data.length; x++){
+      result+='<option value=' + data.data[x]._id + '>' + data.data[x]._id + '</option>';
+    }
+    $('#download').html(result);
+  })
+  .fail(function(){
+    limparCampoPesquisa();
+  });
 }
