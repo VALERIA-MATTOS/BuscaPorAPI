@@ -13,29 +13,24 @@ var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
 $(document).ready(function(){
   inicio ();
   efeitoRolagemTela();
-
   $('#limpar').click(function(){
     limparResultadoPesquisa();
     $('#selecaoItem').hide();
     $('#campoPesquisa').val('');
-  })
-
+  });
   $('#pesquisar').click(function(){
     limparResultadoPesquisa();
     validacaoColecao();
   });
-  
   $('#selecaoItem').change(function(){
     tabelaItens();
-  })
-
+  });
   $('.linksPaginacao').click(function(data){
     var pagina = $(this).attr('id');
     $("li").removeClass("active");
     $("li .linksPaginacao[id="+pagina+"]").parent().addClass("active");
     minimoPagina(pagina);
-  })
-
+  });
 });
 
 $(document).keypress(function(e) {
@@ -46,6 +41,16 @@ $(document).keypress(function(e) {
   }
 });
 
+function inicio (){
+  var minimo=minimoMaximo[0];
+  var maximo=minimoMaximo[1];
+  $('#modalAttention').hide();
+  $("#myModal").modal("show");
+  acervo(minimo,maximo);
+  paginacaoTabela();
+  $("li .linksPaginacao[id=1]").parent().addClass("active");
+}
+
 function limparResultadoPesquisa(){
   $('#tabelaInformacoes').html('');
   $('#limpar').hide();
@@ -54,7 +59,15 @@ function limparResultadoPesquisa(){
 function limparCampoPesquisa (){
   $('#campoPesquisa').val('');
   $('#selecaoItem').hide();
+  $('#modalAttention').show();
+  $('#modalWelcome').hide();
   $("#myModal").modal();
+}
+
+function minimoPagina (pagina){
+  var minimo=minimoMaximo[pagina-1];
+  var maximo=minimoMaximo[pagina];
+  acervo(minimo,maximo);
 }
 
 function validacaoColecao (){
@@ -87,28 +100,12 @@ function efeitoRolagemTela (){
   });
 }
 
-function inicio (){
-  var minimo=minimoMaximo[0];
-  var maximo=minimoMaximo[1];
-  acervo(minimo,maximo);
-  paginacaoTabela();
-  $("li .linksPaginacao[id=1]").parent().addClass("active");
-}
-
-function minimoPagina (pagina){
-  var minimo=minimoMaximo[pagina-1];
-  var maximo=minimoMaximo[pagina];
-  acervo(minimo,maximo);
-}
-
 function acervo(minimo,maximo){
   var tituloColecao='';
   var result='';
-  //var itensPorPagina=0;
   $.getJSON(endereco.colecoes, function(data){
     result+=cabecalho.colecao;
     for (var n=minimo; n<maximo; n++){
-      //itensPorPagina++;
       if (data.data[n]==undefined) {
         do {
           n++;
@@ -118,14 +115,11 @@ function acervo(minimo,maximo){
       acervoCodigo = data.data[n];
       tituloColecao=acervoTitulos(acervoCodigo);
       result+='<td>'+ tituloColecao + '</td></tr>';
-      /*if (itensPorPagina===10){
-        n=300;
-        itensPorPagina=0;
-      }*/
     }
     result += '</table>';
     $('#tabelasAcervo').html(result);
-  })
+    $("#myModal").modal("hide");
+  });
 }
 
 function acervoTitulos(acervoCodigo){
