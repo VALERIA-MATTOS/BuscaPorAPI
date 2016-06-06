@@ -1,7 +1,7 @@
 var endereco= {
   colecoes:'https://oc-index.library.ubc.ca/collections',
   itens:'https://oc-index.library.ubc.ca/collections/',
-  downloads: 'https://open.library.ubc.ca/collections/darwin/items/1.0000091'
+  imagens: 'http://iiif.library.ubc.ca/image/cdm.darwin.1-0000091/full/100,100/0/default.png'
 }
 
 var cabecalho={
@@ -14,6 +14,7 @@ var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
 $(document).ready(function(){
   inicio ();
   efeitoRolagemTela();
+  imagens();
   $('#limpar').click(function(){
     limparResultadoPesquisa();
     $('#selecaoItem').hide();
@@ -40,6 +41,9 @@ $(document).keypress(function(e) {
     e.preventDefault();
     limparResultadoPesquisa();
     validacaoColecao();
+  }
+  if (e.which == 116) {
+    alert ('efe cinco');
   }
 });
 
@@ -180,4 +184,10 @@ function paginacaoTabela (){
   }
   '</ul>';
   $('.paginacaoTabela').html(links);
+}
+
+function imagens(){
+  var retorno = '';
+  retorno += '<img src="'+endereco.imagens+'">';
+  $('#imagem').html(retorno);
 }
