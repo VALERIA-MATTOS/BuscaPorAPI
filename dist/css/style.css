@@ -24,7 +24,7 @@ h4 {font-size: 19px; line-height: 1.375em; color: #303030; font-weight: 400; mar
 #myModal h3 {color: #46c29f;}
 #selecaoItem {display: none; margin-left: 10%;}
 #tabelaInfos {width: 80%; margin-left: 0; background-color: white;}
-
+#googleMap {height:400px; width:100%;}
 @media screen and (max-width: 768px) {
     .col-sm-4 {
         text-align: center;

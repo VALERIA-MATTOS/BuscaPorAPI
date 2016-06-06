@@ -181,17 +181,3 @@ function paginacaoTabela (){
   '</ul>';
   $('.paginacaoTabela').html(links);
 }
-
-function pesquisarColecao(codigo){
-  $.getJSON(endereco.downloads + codigo + '/items', function(data){
-    var result='';
-    $('#selecaoItem').show();
-    for (var x=0; x<data.data.length; x++){
-      result+='<option value=' + data.data[x]._id + '>' + data.data[x]._id + '</option>';
-    }
-    $('#download').html(result);
-  })
-  .fail(function(){
-    limparCampoPesquisa();
-  });
-}
