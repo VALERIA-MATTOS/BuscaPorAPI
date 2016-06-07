@@ -1,7 +1,7 @@
 var endereco= {
   colecoes:'https://oc-index.library.ubc.ca/collections',
   itens:'https://oc-index.library.ubc.ca/collections/',
-  imagens: 'http://iiif.library.ubc.ca/image/cdm.darwin.1-0000091/full/100,100/0/default.png'
+  imagens: 'http://iiif.library.ubc.ca/image/cdm.'
 }
 
 var cabecalho={
@@ -14,7 +14,6 @@ var minimoMaximo = [0,20,51,74,92,109,127,154,171,189,206,226,244,263,280,300];
 $(document).ready(function(){
   inicio ();
   efeitoRolagemTela();
-  imagens();
   $('#limpar').click(function(){
     limparResultadoPesquisa();
     $('#selecaoItem').hide();
@@ -48,6 +47,7 @@ $(document).keypress(function(e) {
 });
 
 function inicio (){
+  $('.loader').hide();
   $("#modalWelcome").modal("show");
   var minimo=minimoMaximo[0];
   var maximo=minimoMaximo[1];
@@ -171,6 +171,7 @@ function tabelaItens (){
       if ($(data.data.Country).length !=0) result+='<tr><td> Country </td><td>' + data.data.Country[0].value + '</td></tr>';
       if ($(data.data.Title).length !=0) result+='<tr><td> Title </td><td>' + data.data.Title[0].value + '</tr></table>';
       $('#tabelaInformacoes').html(result);
+      imagens(codigo,itemSelecionado);
       $('#limpar').show();
     })  
   }
@@ -186,8 +187,12 @@ function paginacaoTabela (){
   $('.paginacaoTabela').html(links);
 }
 
-function imagens(){
+function imagens(codigo,itemSelecionado){
+  $('.loader').show();
+  var itemSelecionadoAlterado = itemSelecionado.replace(".", "-");
   var retorno = '';
-  retorno += '<img src="'+endereco.imagens+'">';
+  retorno += '<img src="'+endereco.imagens+ codigo + '.' + itemSelecionadoAlterado +'/full/300,300/0/default.png">';
+  console.log(retorno);
+  $('.loader').hide();
   $('#imagem').html(retorno);
 }
